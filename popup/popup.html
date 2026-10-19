@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1688聊天记录导出</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="container">
+    <div class="topline"><div><h1>1688聊天记录导出</h1><p id="connectionText">请先打开1688聊天记录查询页</p></div><button class="icon-btn" id="openPageBtn" title="打开1688查询页面">↗</button></div>
+    <section class="card employee-card">
+      <div class="card-title"><strong>员工账号，可多选</strong><span id="selectedCount">已选择 0 个员工</span></div>
+      <button class="primary-btn" id="refreshEmployeesBtn">刷新员工列表</button>
+      <div class="selection-actions"><button id="selectAllBtn">全选</button><button id="clearEmployeesBtn">清空</button></div>
+      <div class="employee-list" id="employeeList"><div class="empty">点击“刷新员工列表”读取员工</div></div>
+    </section>
+    <section class="card task-card"><div class="card-title"><strong>任务执行</strong><span class="status-pill idle" id="taskStatus">未开始</span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="task-summary" id="taskSummary">刷新员工列表后开始导出</div></section>
+    <section class="card date-card">
+      <div class="card-title"><strong>日期范围</strong><span>两种方式二选一</span></div>
+      <div class="mode-switch"><button class="active" id="customModeBtn">自定义日期</button><button id="quickModeBtn">快捷日期</button></div>
+      <div class="date-inputs"><label>开始日期<input type="date" id="dateStart"></label><label>结束日期<input type="date" id="dateEnd"></label></div>
+      <div class="quick-grid" id="quickGrid"><button data-range="yesterday">昨天</button><button data-range="7">近7天</button><button data-range="15">近15天</button><button data-range="30">近30天</button><button data-range="lastMonth">上个月</button><button data-range="thisMonth">本月</button></div>
+      <p class="hint" id="dateHint">请选择日期范围。1688单次查询最多支持7天，超过时将自动分段执行。</p>
+    </section>
+    <section class="card export-card">
+      <label class="field-label">店铺名称 <span>用于导出文件命名</span></label><input id="shopName" value="佛山市高尔顿家具有限公司" placeholder="请输入店铺名称">
+      <label class="check-row"><input type="checkbox" id="saveToFeishu"> 同步保存到飞书多维表格</label>
+      <div class="export-actions"><button class="excel-btn" id="exportExcelBtn">导出 Excel</button><button class="json-btn" id="exportJsonBtn">导出 JSON</button></div>
+      <div class="log-actions"><button id="clearLogBtn">清空日志</button><button id="copyLogBtn">复制日志</button></div><div class="log" id="log"></div>
+    </section>
+    <details class="schedule-details"><summary>定时导出设置</summary><div class="schedule-body"><label class="check-row"><input type="checkbox" id="scheduleEnabled"> 启用每天自动导出</label><div class="schedule-row"><input type="time" id="scheduleTime" value="09:00"><input id="scheduleEmployees" placeholder="员工名，逗号分隔"></div><select id="scheduleDays"><option value="1">昨天</option><option value="3">近3天</option><option value="7">近7天</option></select><button class="secondary-btn" id="saveScheduleBtn">保存定时设置</button><div id="scheduleStatus"></div></div></details>
+  </main><script src="popup.js"></script>
+</body>
+</html>
