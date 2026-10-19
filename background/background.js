@@ -7,9 +7,9 @@ const PAGE_URL = 'https://air.1688.com/app/1688-pc-front/pc-message-manage/';
 
 function nextFireTime(timeStr) {
   const now = new Date();
-  const parts = (timeStr || '09:00').split(':');
-  const h = parseInt(parts[0], 10) || 9;
-  const m = parseInt(parts[1], 10) || 0;
+  const match = /^(\d{2}):(\d{2})$/.exec(timeStr || '');
+  const h = match && Number(match[1]) < 24 ? Number(match[1]) : 9;
+  const m = match && Number(match[2]) < 60 ? Number(match[2]) : 0;
   const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0, 0);
   if (target.getTime() <= now.getTime() + 60000) {
     target.setDate(target.getDate() + 1);
